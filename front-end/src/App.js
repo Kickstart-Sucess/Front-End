@@ -1,12 +1,16 @@
 import React from 'react';
 import logo from './logo.svg';
+import { Switch, Link, Route } from "react-router-dom"
 import './App.css';
+
+import Header from "./components/Header/Header"
+import Dashboard from "./components/Dashboard/Dashboard"
 
 function App() {
   return (
     <div className="App">
-      <h1>KICKSTARTER-SUCCESS DASHBOARD</h1>
-      <p>You will be able to see your campaigns here.</p>
+      <Header />
+      <Dashboard />
     </div>
   );
 }
