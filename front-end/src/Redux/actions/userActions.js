@@ -15,10 +15,3 @@ export const updateUser = (user) => {
     payload: user,
   };
 };
-
-export const removeUser = (user) => {
-  return {
-    type: REMOVE_USER,
-    payload: user,
-  };
-};
