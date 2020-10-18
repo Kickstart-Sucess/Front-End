@@ -5,10 +5,10 @@ import "./Header.scss";
 
 const Header = () => {
 
-//   const signOut = () => {
-//     localStorage.removeItem("token");
-//     window.location.reload("/articles/");
-//   };
+  const signOut = () => {
+    localStorage.removeItem("token");
+    window.location.reload("/Dashboard");
+  };
 
   return (
     <div className="header">
@@ -19,9 +19,25 @@ const Header = () => {
         Kickstarter-Success
       </a>
       <nav className="nav-links">
-        <Link to='/'>Dashboard</Link>
-        <Link to='/login'>Sign In</Link>
-        <a href="#">Sign Out</a>
+        {localStorage.getItem("token") ? (
+          <Link className="nav-link" to="/Dashboard">
+            Dashboard
+          </Link>
+        ) : null}
+        {localStorage.getItem("token") ? (
+          <Link className="nav-link" to="/" onClick={signOut}>
+            Sign Out
+          </Link>
+        ) : (
+          <Link className="nav-link" to="/">
+            Sign In
+          </Link>
+        )}
+        {localStorage.getItem("token") ? null : (
+          <Link className="nav-link" id="signup-btn" to="/SignUp">
+            Sign Up
+          </Link>
+        )}
       </nav>
     </div>
   );

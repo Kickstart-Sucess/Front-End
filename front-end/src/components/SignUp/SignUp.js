@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import './SignUp.css';
+import './SignUp.scss';
 import * as Yup from "yup";
 import axios from 'axios'
 import { Link, Redirect } from "react-router-dom";
@@ -13,13 +13,13 @@ function SignUp() {
         name: "",
         email: "",
         password: "",
-        age: 0
+        age: ""
       });
       const [formState, setFormState] = useState({
         name: "",
         email: "",
         password: "",
-        age: 0
+        age: ""
       });
       const [buttonDisabled, setButtonDisabled] = useState(true);
 
@@ -135,7 +135,7 @@ function SignUp() {
 
     
     <form onSubmit={formSubmit}>
-    Already have an account? <Link to='/login'>Login</Link><br/>
+    Already have an account? <Link to='/'>Login</Link><br/>
 
     <label htmlFor="emailInput">
       Username:

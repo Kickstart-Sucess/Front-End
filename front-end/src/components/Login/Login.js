@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import './SignUp.css';
+import './Login.scss';
 import * as Yup from "yup";
 import axios from 'axios'
 import { Link, Redirect } from 'react-router-dom';
@@ -109,13 +109,13 @@ function Form( props) {
       };
     
   if (redirect === true) {
-        return <Redirect to='/' />
+        return <Redirect to='/Dashboard' />
   }
     
   return (
     <form onSubmit={formSubmit}>
     <label htmlFor="emailInput">
-      Don't have an account yet? <Link to='/signup'>Sign Up</Link><br/>
+      Don't have an account yet? <Link to='/SignUp'>Sign Up</Link><br/>
 
       Username:
       <input id="nameInput" type="name" name="name" placeholder="Name"  onChange={inputChange} value = {formState.name}/>
