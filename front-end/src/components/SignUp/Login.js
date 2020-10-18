@@ -80,7 +80,6 @@ function Form( props) {
         axios
           .post("https://kickstarter-success-bw.herokuapp.com/api/auth/login", data)
           .then(res => {
-            setPost(res.data); 
             console.log("success!", res);
             setFormState({name: "",
             email: "",
@@ -90,6 +89,8 @@ function Form( props) {
               ...errors,
               name: ''
             });
+            localStorage.setItem('token', res.data.token);
+
             setRedirect(true);
 
           })
