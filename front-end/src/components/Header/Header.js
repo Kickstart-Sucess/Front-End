@@ -33,6 +33,11 @@ const Header = () => {
             Sign In
           </Link>
         )}
+        {localStorage.getItem("token") ? null : (
+          <Link className="nav-link" id="signup-btn" to="/SignUp">
+            Sign Up
+          </Link>
+        )}
       </nav>
     </div>
   );

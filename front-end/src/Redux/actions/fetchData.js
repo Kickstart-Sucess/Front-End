@@ -7,7 +7,7 @@ export const FETCH_DATA_FAIL = "FETCH_DATA_FAIL";
 export const fetchData = () => (dispatch) => {
     dispatch({ type: FETCH_DATA_START });
         axios
-        .get("https://api.kanye.rest")
+        .get("")
         .then((res) => {
             console.log("ko: actions/index.js: fetchData: axios.then: res: ", res);
             dispatch({

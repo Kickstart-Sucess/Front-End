@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-// import { axiosWithAuth } from "../api/axiosWithAuth.js";
+import { axiosWithAuth } from "../api/axiosWithAuth";
 
 class LogIn extends React.Component {
   state = {
@@ -22,7 +22,7 @@ class LogIn extends React.Component {
   login = (e) => {
     e.preventDefault();
     axios
-      .post("/api/auth/login", this.state.credentials)
+      .post("https://kickstarter-success-bw.herokuapp.com/api/auth/login", this.state.credentials)
       .then((res) => {
         console.log("ko: Login.js: login: res: ", res);
         window.localStorage.setItem("token", res.data.token);
