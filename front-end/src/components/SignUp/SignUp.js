@@ -88,7 +88,9 @@ function SignUp() {
         axios
           .post("https://kickstarter-success-bw.herokuapp.com/api/auth/register", data)
           .then(res => {
-            setPost(res.data); 
+            axios
+          .post("https://kickstarter-success-bw.herokuapp.com/api/auth/login", data)
+          .then(res => {
             console.log("success!", res);
             setFormState({name: "",
             email: "",
@@ -98,6 +100,8 @@ function SignUp() {
               ...errors,
               name: ''
             });
+            localStorage.setItem('token', res.data.token);
+
             setRedirect(true);
 
           })
@@ -110,8 +114,16 @@ function SignUp() {
             });
 
           }
-          
-          
+          );
+          })
+          .catch(err => {
+            
+            console.log(err.response)
+            setErrors({
+              ...errors,
+              name: err.response.data.message
+            });
+          }
           );
       };
 
