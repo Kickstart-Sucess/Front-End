@@ -7,6 +7,6 @@ export const axiosWithAuth = () => {
         headers: {
             Authorization: token
         },
-        baseURL: "https://kickstarter-success-bw.herokuapp.com/"
+        baseURL: "https://kickstarter-success-bw.herokuapp.com"
     })
 }

@@ -101,6 +101,7 @@ function SignUp() {
               name: ''
             });
             localStorage.setItem('token', res.data.token);
+            localStorage.setItem("user_id", res.data.id)
 
             setRedirect(true);
 

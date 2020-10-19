@@ -1,5 +1,5 @@
   
-import { ADD_USER, UPDATE_USER, REMOVE_USER } from '../actions/userActions'
+import { ADD_USER } from '../actions/userActions'
 
 const initial_state = {
 	data: []

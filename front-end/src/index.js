@@ -5,21 +5,28 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import {BrowserRouter as Router} from "react-router-dom"
 import { logger } from "redux-logger"
+import { campaignReducer } from "./Redux/reducers/campaignReducer"
+import { userReducer } from "./Redux/reducers/userReducer"
 
 import App from "./App";
 
 import "./index.css"
 
-// const store = createStore(Reducer, applyMiddleware(thunk));
+const rootReducer = combineReducers({
+  campaignReducer,
+  userReducer,
+})
+
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <Router>
-    <App />
+      <App />
     </Router>
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );

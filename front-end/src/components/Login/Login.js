@@ -28,11 +28,9 @@ function Form( props) {
     const formSchema = Yup.object().shape({
         name: Yup
         .string()
-        .min(3, "Username must be at least 3 characters long.")
         .required("Must include username."),
         password: Yup
           .string()
-          .min(6, "Passwords must be at least 6 characters long.")
           .required("Password is Required"),
       });
 
@@ -90,6 +88,7 @@ function Form( props) {
               name: ''
             });
             localStorage.setItem('token', res.data.token);
+            localStorage.setItem("user_id", res.data.id);
 
             setRedirect(true);
 

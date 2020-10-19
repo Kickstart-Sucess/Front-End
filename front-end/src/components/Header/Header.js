@@ -7,7 +7,7 @@ const Header = () => {
 
   const signOut = () => {
     localStorage.removeItem("token");
-    window.location.reload("/Dashboard");
+    window.location.reload("/login");
   };
 
   return (
@@ -29,7 +29,7 @@ const Header = () => {
             Sign Out
           </Link>
         ) : (
-          <Link className="nav-link" to="/">
+          <Link className="nav-link" to="/login">
             Sign In
           </Link>
         )}
