@@ -13,7 +13,6 @@ import { campaignReducer } from '../../Redux/reducers/campaignReducer';
 
 const CampaignCard = (props) => {
     const [card, setCard] = useState(props.campaign)
-    console.log(card)
 
     useEffect(() => {
         props.fetchCampaigns();
@@ -24,9 +23,7 @@ const CampaignCard = (props) => {
     return (
         <div className='campaign-card'>
             <div className="card-content">
-                <div className="image-holder">
-                    image
-                </div>
+                <img className="campaign-img" src={props.imageURL} alt="campagn img" />
                 <div> {props.name} </div>
                 <p>
                     you will be able to click it

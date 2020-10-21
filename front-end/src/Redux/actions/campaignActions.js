@@ -1,4 +1,5 @@
 import { axiosWithAuth } from "../../components/api/axiosWithAuth"
+import axios from "axios"
 
 export const FETCH_CAMPAIGN_START = "FETCH_CAMPAIGN_START"
 export const FETCH_CAMPAIGN_SUCCESS = "FETCH_CAMPAIGN_SUCCESS"
@@ -27,12 +28,15 @@ export const ADD_METRIC_FAIL = "ADD_METRIC_FAIL"
 export const FETCH_METRIC = "FETCH_METRIC"
 export const DELETE_METRIC = "DELETE_METRIC"
 
+export const FETCH_SINGLE_USER = "FETCH_SINGLE_USER"
+
 
 export const fetchCampaigns = () =>  (dispatch) => {
     dispatch({ type: FETCH_CAMPAIGN_START});
     axiosWithAuth()
         .get("/api/campaigns")
         .then((res) => {
+            console.log("THIS IS WHAT IS RETURN IN CAMPAIGNS: ", res.data)
             dispatch({ type:FETCH_CAMPAIGN_SUCCESS, payload: res.data })
         })
         .catch((err) =>
@@ -97,5 +101,25 @@ export const deleteSingleCampaign = (id) => (dispatch) => {
             .catch((err) => console.log("ko: campaignActions: deleteSingleCampaign: error: ", err.message))
     }
 }
+
+export const addMetric = (newMetric) => (dispatch) => {
+    console.log("ko: campaignActions.js: addMetric: newMetric: ", newMetric);
+    dispatch({ type: ADD_METRIC_START})
+    axios
+        .post('https://kickstart2.herokuapp.com/predict', newMetric)
+        .then((res) => {
+            console.log("ko: campaignActions.js:  newMetric Sent: ", res.data);
+            dispatch({ type: ADD_METRIC_SUCCESS, payload: res.data });
+            // window.location.reload();
+        })
+        .catch((err) => {
+            console.log("ko: campaignActions.js:  newMetric: error: ", err.message)
+            dispatch({ type: ADD_METRIC_FAIL, payload: err.message })
+        })
+    
+}
+
+
+
 
 
