@@ -13,12 +13,13 @@ import "./CampaignForm.scss"
 
 
 const CampaignForm = (props) => {
-
+    console.log("ko: campaignForm.js: CampaignForm: props: ", props)
     const history = useHistory();
 
     const [ newCampaign, setNewCampaign] = useState({
         name: "",
-        user_id: ""
+        user_id: 2,
+        imageURL: ""
     })
 
     const userID = window.localStorage.getItem("userID")
@@ -47,11 +48,12 @@ const CampaignForm = (props) => {
         <div>
             <form onSubmit={(e) => handleSubmit(e)}>
                 <h1>Add a Campaign:</h1>
-                <label> Campaign Name:
+                <label htmlFor="name"> Campaign Name:
                     <input 
                         className="input"
                         onChange={handleChange}
                         value={newCampaign.name}
+                        id="name"
                         name="name"
                         type="text"
                         placeholder="Campaign Name"
@@ -60,17 +62,18 @@ const CampaignForm = (props) => {
                 <label> User ID:
                     <input
                         className="input"
-                        onChange={handleChange}
+                        // onChange={handleChange}
                         value={newCampaign.user_id}
                         type="text"
                         name="user_id"
+                        disabled
                     />
                 </label>
                 <label> Image URL:
                     <input
                         className="input"
                         onChange={handleChange}
-                        value={newCampaign.photoURL}
+                        value={newCampaign.imageURL}
                         type="url"
                         name="imageURL"
                         placeholder="http://image.url"

@@ -39,13 +39,18 @@ const Dashboard = (props) => {
                             return (
                                 <CampaignCard
                                   name={campaign.name}
+                                  imageURL={campaign.imageURL}
                                   key={campaign.id}
                                 />
                             )
                         })}
                     </div>
                 </PrivateRoute>
-                <PrivateRoute exact path="/add" component={CampaignForm}/>
+                <PrivateRoute exact path="/add">
+                    <CampaignForm
+                        userID={props.campaigns.user_id}
+                    />
+                    </PrivateRoute>
             </Switch>
         </Router>
         </div>

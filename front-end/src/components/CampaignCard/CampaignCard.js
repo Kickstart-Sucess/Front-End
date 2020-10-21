@@ -23,7 +23,7 @@ const CampaignCard = (props) => {
     return (
         <div className='campaign-card'>
             <div className="card-content">
-                <img className="campaign-img" src={props.photoURL} alt="campagn img" />
+                <img className="campaign-img" src={props.imageURL} alt="campagn img" />
                 <div> {props.name} </div>
                 <p>
                     you will be able to click it
