@@ -5,7 +5,8 @@
     height: auto;
     padding: 8px;
     border-radius: 4px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    margin: 0 8px;
+    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.2);
 
     .card-content{
         display: flex;
@@ -16,7 +17,7 @@
             margin: 4px 0;
         }
 
-        .image-holder {
+        .campaign-img {
             margin: 0 auto;
             padding-top: 16px;
             width: 100%;

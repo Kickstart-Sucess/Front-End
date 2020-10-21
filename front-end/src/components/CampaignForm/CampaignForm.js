@@ -65,7 +65,16 @@ const CampaignForm = (props) => {
                         type="text"
                         name="user_id"
                     />
-
+                </label>
+                <label> Image URL:
+                    <input
+                        className="input"
+                        onChange={handleChange}
+                        value={newCampaign.photoURL}
+                        type="url"
+                        name="imageURL"
+                        placeholder="http://image.url"
+                    />
                 </label>
 
                 <button type='submit' onClick={handleSubmit} >Add Campaign</button>
