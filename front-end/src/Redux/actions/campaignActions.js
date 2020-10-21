@@ -29,7 +29,7 @@ export const DELETE_METRIC = "DELETE_METRIC"
 
 
 export const fetchCampaigns = () =>  (dispatch) => {
-    dispatch({ type: FETCH_CAMPAIGN_START})
+    dispatch({ type: FETCH_CAMPAIGN_START});
     axiosWithAuth()
         .get("/api/campaigns")
         .then((res) => {
@@ -38,13 +38,13 @@ export const fetchCampaigns = () =>  (dispatch) => {
         .catch((err) =>
             dispatch({ type: FETCH_CAMPAIGN_FAIL, payload: err.message})
         )
-}
+};
 
-export const addCampaign = (userId, newCampaign) => (dispatch) => {
+export const addCampaign = (newCampaign) => (dispatch) => {
     console.log("ko: campaignActions.js:  newCampaign: ")
     dispatch({ type: ADD_CAMPAIGN_START})
     axiosWithAuth()
-        .post('/api/campaigns')
+        .post('/api/campaigns', newCampaign)
         .then((res) => {
             console.log("ko: campaignActions.js:  newCampaign Sent: ", res.data);
             dispatch({ type: ADD_CAMPAIGN_SUCCESS, payload: res.data });
@@ -56,7 +56,7 @@ export const addCampaign = (userId, newCampaign) => (dispatch) => {
         })
 }
 
-export const fetchSingleCampaign = (id) => (dispatch) {
+export const fetchSingleCampaign = (id) => (dispatch) => {
     dispatch({ type: FETCH_SINGLE_CAMPAIGN_START })
     axiosWithAuth()
         .get(`/api/campaigns/${id}`)
@@ -67,7 +67,7 @@ export const fetchSingleCampaign = (id) => (dispatch) {
 }
 
 export const updateSingleCampaign = (id, campaign) => (dispatch) => {
-    console.log("ko: campaignActions.js: updateCampaign: ", id, article)
+    console.log("ko: campaignActions.js: updateCampaign: ", id, campaign)
 
     dispatch({ type: UPDATE_CAMPAIGN_START })
     axiosWithAuth()

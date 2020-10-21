@@ -3,19 +3,28 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../api/axiosWithAuth";
 
+import {
+    addCampaign,
+    fetchCampaigns
+} from "../../Redux/actions/campaignActions";
+
 import "./CampaignForm.scss"
 
-const CampaignForm = () => {
+
+
+const CampaignForm = (props) => {
 
     const history = useHistory();
 
     const [ newCampaign, setNewCampaign] = useState({
-        name: ""
+        name: "",
+        user_id: ""
     })
 
-    const userID = window.localStorage.getItem("user_id")
+    const userID = window.localStorage.getItem("userID")
 
     const handleChange = (e) => {
+        console.log("typing:", e.target.value);
         setNewCampaign({
             ...newCampaign,
             [e.target.name]: e.target.value
@@ -24,24 +33,19 @@ const CampaignForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axiosWithAuth()
-        .post('/api/campaigns', newCampaign)
-        .then(res => {
-            console.log("KO: CampaignForm.js: handleSubmit: res: ", res)
-            setNewCampaign(res.data);
-            history.push("/Dashboard")
-        })
-        .catch(err => {
-            console.error("KO: CampaignForm.js: error: ", err)
-        })
-        
+        props.addCampaign(newCampaign);
+        history.push("/Dashboard"); 
     }
+
+    useEffect(() => {
+        props.fetchCampaigns();
+    }, []);
 
 
 
     return (
         <div>
-            <form>
+            <form onSubmit={(e) => handleSubmit(e)}>
                 <h1>Add a Campaign:</h1>
                 <label> Campaign Name:
                     <input 
@@ -53,10 +57,28 @@ const CampaignForm = () => {
                         placeholder="Campaign Name"
                     />
                 </label>
+                <label> User ID:
+                    <input
+                        className="input"
+                        value={newCampaign.user_id}
+                        type="text"
+                        name="user_id"
+                    />
+
+                </label>
+
                 <button type='submit' onClick={handleSubmit} >Add Campaign</button>
             </form>
         </div>
     )
 }
 
-export default CampaignForm;
+const mapStateToProps = (state) => {
+    return {
+        data: state.campaignReducer.data
+    }
+}
+
+export default connect(mapStateToProps, { addCampaign, fetchCampaigns})(
+    CampaignForm
+    );
