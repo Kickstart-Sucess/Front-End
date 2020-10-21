@@ -60,6 +60,7 @@ const CampaignForm = (props) => {
                 <label> User ID:
                     <input
                         className="input"
+                        onChange={handleChange}
                         value={newCampaign.user_id}
                         type="text"
                         name="user_id"
