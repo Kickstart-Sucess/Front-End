@@ -12,13 +12,18 @@ import { campaignReducer } from '../../Redux/reducers/campaignReducer';
 
 
 const CampaignCard = (props) => {
-    const [card, setCard] = useState(props.campaign)
+    // const [card, setCard] = useState(props.campaign)
 
     useEffect(() => {
         props.fetchCampaigns();
     }, []);
 
+    
+    // console.log("THESE ARE PROPS FROM CAMPAIGNCARD!: ", props)
 
+    const id = props.id;
+
+    console.log("this is card id: ", id)
 
     return (
         <div className='campaign-card'>
@@ -30,8 +35,17 @@ const CampaignCard = (props) => {
                 </p>
             </div>
             <div className="card-ud">
-                <Link>Edit</Link>
-                <Link>Delete</Link>
+                <button>edit</button>
+                <button
+                    className="delete-btn"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        deleteSingleCampaign(id);
+                        window.location.reload();
+                    }}
+                 >
+                    Delete
+                </button>
             </div>
         </div>
     )
@@ -45,7 +59,4 @@ const mapStateToProps = (state) => {
 
 
 
-export default connect(mapStateToProps, {
-    fetchCampaigns,
-    deleteSingleCampaign
-})(CampaignCard);
+export default connect(mapStateToProps, {fetchCampaigns})(CampaignCard);
