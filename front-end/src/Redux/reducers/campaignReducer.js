@@ -78,6 +78,23 @@ export const campaignReducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload,
             }
+        case ADD_METRIC_START:
+            return {
+                ...state,
+                isFetching: true,
+                error: false,
+            }
+        case ADD_METRIC_SUCCESS:
+            return { 
+                  ...state,
+                isFetching: false,
+                error: "",
+            }
+        case ADD_METRIC_FAIL:
+            return {
+                ...state,
+                error: action.payload
+            }
     default:
         return state;
     }

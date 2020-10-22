@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../api/axiosWithAuth";
 
 import {
-    addCampaign,
+    addMetric,
     fetchCampaigns
 } from "../../Redux/actions/campaignActions";
 
@@ -16,25 +16,23 @@ const PredictionForm = (props) => {
 
     const history = useHistory();
 
-    const [ newCampaign, setNewCampaign] = useState({
-        name: "",
-        user_id: ""
+    const [ newMetric, setNewMetric] = useState({
+        item: "",
     })
 
     const userID = window.localStorage.getItem("userID")
 
     const handleChange = (e) => {
         console.log("typing:", e.target.value);
-        setNewCampaign({
-            ...newCampaign,
+        setNewMetric({
+            ...newMetric,
             [e.target.name]: e.target.value
         })
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.addCampaign(newCampaign);
-        history.push("/Dashboard"); 
+        props.addMetric(newMetric);
     }
 
     useEffect(() => {
@@ -46,18 +44,20 @@ const PredictionForm = (props) => {
     return (
         <div>
             <form onSubmit={(e) => handleSubmit(e)}>
-                <h1>Add a Campaign:</h1>
-                <label> Campaign Name:
+                <h1>Add Prediction:</h1>
+                <label> Description of Campaign:
                     <input 
-                        className="input"
+                        className="metric-form"
+                        rows="10"
+                        col="30"
                         onChange={handleChange}
-                        value={newCampaign.name}
-                        name="name"
-                        type="text"
-                        placeholder="Campaign Name"
+                        value={newMetric.item}
+                        name="description"
+                        type="textarea"
+                        placeholder="Ex: The quick brown fox jumps over the lazy dog."
                     />
                 </label>
-                <label> User ID:
+                {/* <label> User ID:
                     <input
                         className="input"
                         value={newCampaign.user_id}
@@ -65,10 +65,21 @@ const PredictionForm = (props) => {
                         name="user_id"
                     />
 
-                </label>
+                </label> */}
 
-                <button type='submit' onClick={handleSubmit} >Add Campaign</button>
+                <button type='submit' onClick={handleSubmit} >Add Prection</button>
             </form>
         </div>
     )
 }
+
+const mapStateToProps = (state) => {
+    console.log("THIS IS STATE", state)
+    return {
+        data: state.campaignReducer.data  
+    }
+}
+
+export default connect(mapStateToProps, {fetchCampaigns, addMetric})(
+    PredictionForm
+);

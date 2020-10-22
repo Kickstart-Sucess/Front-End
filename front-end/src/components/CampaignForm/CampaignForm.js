@@ -87,6 +87,7 @@ const CampaignForm = (props) => {
 }
 
 const mapStateToProps = (state) => {
+    console.log("THIS IS STATE", state)
     return {
         data: state.campaignReducer.data
     }
