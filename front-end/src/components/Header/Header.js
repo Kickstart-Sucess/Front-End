@@ -7,8 +7,12 @@ const Header = () => {
 
   const signOut = () => {
     localStorage.removeItem("token");
-    window.location.reload("/login");
+    // window.location.reload("/login");
   };
+
+  const getToken = () => {
+    return window.localStorage.getItem("userID")
+}
 
   return (
     <div className="header">
@@ -19,12 +23,12 @@ const Header = () => {
         Kickstarter-Success
       </a>
       <nav className="nav-links">
-        {localStorage.getItem("token") ? (
-          <Link className="nav-link" to="/Dashboard">
+        {window.localStorage.getItem("token") ? (
+          <Link className="nav-link" to="/Dashboard/">
             Dashboard
           </Link>
         ) : null}
-        {localStorage.getItem("token") ? (
+        {window.localStorage.getItem("token") ? (
           <Link className="nav-link" to="/login" onClick={signOut}>
             Sign Out
           </Link>
@@ -33,7 +37,7 @@ const Header = () => {
             Sign In
           </Link>
         )}
-        {localStorage.getItem("token") ? null : (
+        {window.localStorage.getItem("token") ? null : (
           <Link className="nav-link" id="signup-btn" to="/SignUp">
             Sign Up
           </Link>

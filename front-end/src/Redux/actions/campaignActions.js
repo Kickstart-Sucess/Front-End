@@ -21,6 +21,9 @@ export const ADD_CAMPAIGN_START = "ADD_CAMPAIGN_START"
 export const ADD_CAMPAIGN_SUCCESS = "ADD_CAMPAIGN_SUCCESS"
 export const ADD_CAMPAIGN_FAIL = "ADD_CAMPAIGN_FAIL"
 
+export const DELETE_CAMPAIGN = "DELETE_CAMPAIGN"
+export const DELETE_CAMPAIGN_SUCCESS = "DELETE_CAMPAIGN_SUCCESS"
+
 export const ADD_METRIC_START = "ADD_METRIC_START"
 export const ADD_METRIC_SUCCESS = "ADD_METRIC_SUCCESS"
 export const ADD_METRIC_FAIL = "ADD_METRIC_FAIL"
@@ -31,7 +34,7 @@ export const DELETE_METRIC = "DELETE_METRIC"
 export const FETCH_SINGLE_USER = "FETCH_SINGLE_USER"
 
 
-export const fetchCampaigns = () =>  (dispatch) => {
+export const fetchCampaigns = () => (dispatch) => {
     dispatch({ type: FETCH_CAMPAIGN_START});
     axiosWithAuth()
         .get("/api/campaigns")
@@ -91,22 +94,21 @@ export const updateSingleCampaign = (id, campaign) => (dispatch) => {
         )
 }
 
-export const deleteSingleCampaign = (id) => (dispatch) => {
-    if(window.confirm("Delete this campaign?")) {
+export const deleteSingleCampaign = (id) => (dispatch) =>{
+    dispatch({ type: DELETE_CAMPAIGN })
         axiosWithAuth()
             .delete(`/api/campaigns/${id}`)
             .then((res) => {
                 console.log("ko: campaignActions: deleteSingleCampaign: ", res.data)
+                dispatch({ type: DELETE_CAMPAIGN_SUCCESS, payload: res.data})
             })
             .catch((err) => console.log("ko: campaignActions: deleteSingleCampaign: error: ", err.message))
-    }
 }
 
-export const addMetric = (newMetric) => (dispatch) => {
-    console.log("ko: campaignActions.js: addMetric: newMetric: ", newMetric);
+export const addMetric = (id, metric) => (dispatch) => {
     dispatch({ type: ADD_METRIC_START})
-    axios
-        .post('https://kickstart2.herokuapp.com/predict', newMetric)
+    axiosWithAuth()
+        .post(`/api/campaigns/${id}/metrics`, metric)
         .then((res) => {
             console.log("ko: campaignActions.js:  newMetric Sent: ", res.data);
             dispatch({ type: ADD_METRIC_SUCCESS, payload: res.data });

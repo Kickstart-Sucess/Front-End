@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { connect } from "react-redux";
 
 import "./CampaignCard.scss"
@@ -8,31 +8,42 @@ import {
     fetchCampaigns,
     deleteSingleCampaign
 } from "../../Redux/actions/campaignActions"
-import { campaignReducer } from '../../Redux/reducers/campaignReducer';
+import PrivateRoute from '../api/privateRoute';
 
 
 const CampaignCard = (props) => {
-    // const [card, setCard] = useState(props.campaign)
+    const [cards, setCards] = useState(props.data)
 
     useEffect(() => {
         props.fetchCampaigns();
     }, []);
 
+
+    // setTeamPlayers(prevTeamPlayers =>prevTeamPlayers.filter(teamPlayer => teamPlayer.idTeam !== id)
+
     
-    // console.log("THESE ARE PROPS FROM CAMPAIGNCARD!: ", props)
+    console.log("THESE ARE PROPS FROM CAMPAIGNCARD!: ", cards)
 
     const id = props.id;
 
     console.log("this is card id: ", id)
 
+    const params = useParams();
+
+
+    useEffect(() => {
+        props.fetchCampaigns(params.name);
+    }, [params.name]);
+
     return (
         <div className='campaign-card'>
             <div className="card-content">
+            <Link to={`/campaign/${props.id}`}>
+                <div className="campaign-holder">
                 <img className="campaign-img" src={props.imageURL} alt="campagn img" />
-                <div> {props.name} </div>
-                <p>
-                    you will be able to click it
-                </p>
+                </div>
+            </Link>
+                <p className="campaign-name"> {props.name} </p>
             </div>
             <div className="card-ud">
                 <button>edit</button>
@@ -40,7 +51,7 @@ const CampaignCard = (props) => {
                     className="delete-btn"
                     onClick={(e) => {
                         e.stopPropagation();
-                        deleteSingleCampaign(id);
+                        props.deleteSingleCampaign(props.id);
                         window.location.reload();
                     }}
                  >
@@ -59,4 +70,4 @@ const mapStateToProps = (state) => {
 
 
 
-export default connect(mapStateToProps, {fetchCampaigns})(CampaignCard);
+export default connect(mapStateToProps, {fetchCampaigns, deleteSingleCampaign})(CampaignCard);

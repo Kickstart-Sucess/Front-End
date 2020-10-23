@@ -21,19 +21,19 @@ const Dashboard = (props) => {
     const { push } = useHistory();
 
     useEffect(() => {
-        props.fetchCampaigns(params.name);
-    }, [params.name]);
+        props.fetchCampaigns(params.id);
+    }, [params.id]);
 
 
     return(
 
         <div className="Dashboard">
-            <h1>KICKSTARTER-SUCCESS DASHBOARD</h1>
-            <p>You will be able to see your campaigns here.</p> 
-        <Router>
 
+        <Router>
+            <h1>Hello, User!</h1>
             <Switch>
-                <PrivateRoute exact path="/Dashboard">
+            <PrivateRoute exact path="/Dashboard">
+            <p>You will be able to see your campaigns here.</p> 
                     <div className="campaign-dashboard">
                         <Link to="/add" >
                             <button className="new-btn">
@@ -43,14 +43,14 @@ const Dashboard = (props) => {
                         <div className="campaign-list">
                             {props.campaigns.map((campaign)=>{
                                 return (
-                                    <Link key={campaign.id} to={`/campaign/${campaign.name}`}>
+                                    // <Link to={`/campaign/${campaign.id}`}>
                                         <CampaignCard
                                         name={campaign.name}
                                         imageURL={campaign.imageURL}
                                         id = {campaign.id}
                                         key={campaign.id}
                                         />
-                                    </Link>
+                                    // </Link>
                                 )
                             })}
                         </div>

@@ -8,7 +8,7 @@ import Header from "./components/Header/Header";
 import Dashboard from "./components/Dashboard/Dashboard";
 import SignUp from "./components/SignUp/SignUp";
 import Login from "./components/Login/Login";
-import PredictionForm from "./components/PredictionForm/PredictionForm"
+import SingleCampaignDash from './components/SingleCampaignDash/SingleCampaignDash';
 
 
 function App() {
@@ -16,10 +16,10 @@ function App() {
     <div className="App">
       <Header />
       <Switch>
-        <PrivateRoute exact path="/Dashboard" component={Dashboard} />
+        <PrivateRoute exact path="/Dashboard/" component={Dashboard} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/Signup" component={SignUp} />
-        <PrivateRoute exact path="/campaign/:name" component={PredictionForm}/>
+        <PrivateRoute exact path="/campaign/:id" component={SingleCampaignDash}/>
       </Switch>
     </div>
   );
