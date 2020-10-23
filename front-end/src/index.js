@@ -7,6 +7,7 @@ import {BrowserRouter as Router} from "react-router-dom"
 import { logger } from "redux-logger"
 import { campaignReducer } from "./Redux/reducers/campaignReducer"
 import { userReducer } from "./Redux/reducers/userReducer"
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import App from "./App";
 
@@ -17,7 +18,7 @@ const rootReducer = combineReducers({
   userReducer,
 })
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, logger)));
 
 
 

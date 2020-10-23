@@ -19,10 +19,12 @@ const CampaignForm = (props) => {
     const [ newCampaign, setNewCampaign] = useState({
         name: "",
         user_id: 2,
-        imageURL: ""
+        imageURL: "",
+        description: ""
     })
 
     const userID = window.localStorage.getItem("userID")
+
 
     const handleChange = (e) => {
         console.log("typing:", e.target.value);
@@ -53,10 +55,22 @@ const CampaignForm = (props) => {
                         className="input"
                         onChange={handleChange}
                         value={newCampaign.name}
+                        maxlength="25"
                         id="name"
                         name="name"
                         type="text"
                         placeholder="Campaign Name"
+                    />
+                </label>
+                <label htmlFor="name"> Campaign Description:
+                    <input 
+                        className="input"
+                        onChange={handleChange}
+                        value={newCampaign.description}
+                        id="description"
+                        name="description"
+                        type="text"
+                        placeholder="Enter the description of your Campaign"
                     />
                 </label>
                 <label> User ID:

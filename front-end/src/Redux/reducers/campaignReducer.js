@@ -15,11 +15,15 @@ import {
     ADD_METRIC_SUCCESS,
     ADD_METRIC_FAIL,
     FETCH_METRIC,
-    DELETE_METRIC
+    DELETE_METRIC,
+    DELETE_SUCCESS,
+    DELETE_CAMPAIGN_SUCCESS,
+    DELETE_CAMPAIGN
 } from "../actions/campaignActions"
 
 const initialState = {
     data: [],
+    metricSuccess: [],
     isFetching: false,
     error: "",
 }
@@ -89,11 +93,21 @@ export const campaignReducer = (state = initialState, action) => {
                   ...state,
                 isFetching: false,
                 error: "",
+                metricSuccess: action.payload.prediction.success_failure
             }
         case ADD_METRIC_FAIL:
             return {
                 ...state,
                 error: action.payload
+            }
+        case DELETE_CAMPAIGN:
+            return {
+                ...state
+            }
+        case DELETE_CAMPAIGN_SUCCESS:
+            return {
+                ...state,
+                data: action.payload
             }
     default:
         return state;
