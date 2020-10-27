@@ -100,10 +100,7 @@ function Form( props) {
               ...errors,
               name: err.response.data.message
             });
-
           }
-          
-          
           );
       };
     

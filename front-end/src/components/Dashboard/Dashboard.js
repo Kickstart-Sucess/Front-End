@@ -16,9 +16,15 @@ const Dashboard = (props) => {
     const [campaignCard, setCampaignCard] = useState(props.campaigns)
     console.log("ko: Dashboard.js: dashboard: campaigncard: ", campaignCard)
 
-
     const params = useParams();
     const { push } = useHistory();
+
+ 
+
+
+
+
+
 
     useEffect(() => {
         props.fetchCampaigns(params.id);
