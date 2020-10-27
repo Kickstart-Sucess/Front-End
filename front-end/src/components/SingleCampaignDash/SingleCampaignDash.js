@@ -19,16 +19,17 @@ const PredictionForm = (props) => {
         description: ""
     })
     const [ campaign, setCampaign ] = useState({
-        name:"",
+        name: "",
         user_id: 2,
         imageURL: "",
-        description: "",
-        prediction: 1
+        description: ""
+        
     })
 
     const [ prediction, setPrediction ] = useState(props.metricSuccess)
     // const [campaignList, setCampaignList] = useState(props.data)
-    // const [ aCampaign, setACampaign] = useState(props.singleCampaign)
+    const [ aCampaign, setACampaign] = useState(props.singleCampaign)
+    console.log("single campaign: ", props.singleCampaign)
 
     
 
@@ -91,25 +92,33 @@ const PredictionForm = (props) => {
 
     return (
         <div>
-            <form onSubmit={(e) => handleUpdate(e)}>
+            <form className="edit-form" onSubmit={(e) => handleUpdate(e)}>
             <h1>Campaign Information: </h1>
-            <label>Campaign Name</label>
+            <label>Campaign Name:
             <input 
                 type='text'
                 name='name'
                 placeholder={props.singleName}
                 onChange={updateTheCampaign} 
                 value={campaign.name}
-            />
+            /></label>
             <img className="edit-img" src={props.singleImg} />
-            <label>Image URL</label>
+            <label>Image URL:
             <input 
                 name="img"
                 type="url"
                 placeholder={props.singleImg}
                 onChange={updateTheCampaign}
                 // value={campaign.imageURL}
-            />
+            /></label>
+            <label>Description:
+            <input 
+                type='text'
+                name='name'
+                placeholder={props.singleDesc}
+                onChange={updateTheCampaign} 
+                value={campaign.description}
+            /></label>
            <button>Update Campaign</button>
            </form>
 
@@ -140,7 +149,7 @@ const PredictionForm = (props) => {
             <div className="metric-display">
                <h1> Based on your descrption your chances of a successful campaign are:</h1>
             <div className="campaign-desc">{props.singleCampaign.description}</div>
-                <div>{prediction}</div>
+                <h1>{prediction}</h1>
             </div>
 
         </div>
@@ -153,7 +162,7 @@ const mapStateToProps = (state) => {
         ...state,
         data: state.campaignReducer.data,
         metricSuccess: state.campaignReducer.metricSuccess,
-        singleCampaign: state.campaignReducer.data,
+        singleCampaign: state.campaignReducer.singleCampaign,
         singleName: state.campaignReducer.singleName,
         singleImg: state.campaignReducer.singleImg,
         singleDesc: state.campaignReducer.singleDesc,

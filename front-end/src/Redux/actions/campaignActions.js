@@ -78,16 +78,16 @@ export const updateSingleCampaign = (id, campaign) => (dispatch) => {
 
     dispatch({ type: UPDATE_CAMPAIGN_START })
     axiosWithAuth()
-        .put(`/api/campaigns/${id}`, id, campaign)
+        .put(`/api/campaigns/${id}`, campaign)
         .then((response) => {
             // axiosWithAuth()
             //     .get(`/api/campaigns`)
             //     .then((response) => {
                     dispatch({ type: UPDATE_CAMPAIGN_SUCCESS, payload: response.data })
                 })
-                .catch((err) => {
-                    console.log(err)
-                })
+                // .catch((err) => {
+                //     console.log(err)
+                // })
         // })
         .catch((err) =>
             dispatch({ type: UPDATE_CAMPAIGN_FAIL, payload: err.message})
