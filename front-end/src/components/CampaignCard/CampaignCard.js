@@ -6,6 +6,7 @@ import "./CampaignCard.scss"
 
 import {
     fetchCampaigns,
+    fetchSingleCampaign,
     deleteSingleCampaign
 } from "../../Redux/actions/campaignActions"
 import PrivateRoute from '../api/privateRoute';
@@ -13,27 +14,45 @@ import PrivateRoute from '../api/privateRoute';
 
 const CampaignCard = (props) => {
     const [cards, setCards] = useState(props.data)
-
-    useEffect(() => {
-        props.fetchCampaigns();
-    }, []);
-
-
-    // setTeamPlayers(prevTeamPlayers =>prevTeamPlayers.filter(teamPlayer => teamPlayer.idTeam !== id)
-
+    const [editing, setEditing] = useState(false);
+    const [ editCampaign, setEditCampaign ] = useState({
+        name: "",
+        user_id: 2,
+        imageURL: "props.imageURL",
+        description: "props.description"
+    })
     
     console.log("THESE ARE PROPS FROM CAMPAIGNCARD!: ", cards)
 
-    const id = props.id;
-
-    console.log("this is card id: ", id)
-
     const params = useParams();
+    // const campaignID = props.match.params.id
+    // console.log("these is an id: ", campaignID)
 
+    
+
+    const editTheCampaign = campaign => {
+        setEditing(true);
+        setEditCampaign(campaign)
+    }
+
+    const saveEdit = e => {
+        e.preventDefault();
+        props.updateSingleCampaign(cards.id, editCampaign);
+    }
+
+    const updateTheCampaign = (e) => {
+        console.log("typing: ", e.target.value);
+        setEditCampaign({
+            ...editCampaign,
+            [e.target.name]: e.target.value
+        })
+    }
 
     useEffect(() => {
-        props.fetchCampaigns(params.name);
-    }, [params.name]);
+        props.fetchCampaigns();
+        fetchSingleCampaign(cards.id, editCampaign);
+        props.fetchCampaigns(params.id);
+    }, [params.id]);
 
     return (
         <div className='campaign-card'>
@@ -43,10 +62,10 @@ const CampaignCard = (props) => {
                 <img className="campaign-img" src={props.imageURL} alt="campagn img" />
                 </div>
             </Link>
-                <p className="campaign-name"> {props.name} </p>
+                <p className="campaign-name" onClick={() => editTheCampaign(props.name)}> {props.name} </p>
             </div>
             <div className="card-ud">
-                <button>edit</button>
+                
                 <button
                     className="delete-btn"
                     onClick={(e) => {

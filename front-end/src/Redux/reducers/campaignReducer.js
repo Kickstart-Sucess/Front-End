@@ -24,6 +24,7 @@ import {
 const initialState = {
     data: [],
     metricSuccess: [],
+    singleCampaign: [],
     isFetching: false,
     error: "",
 }
@@ -57,6 +58,10 @@ export const campaignReducer = (state = initialState, action) => {
         case FETCH_SINGLE_CAMPAIGN_SUCCESS:
             return {
                 ...state,
+                singleCampaign: action.payload,
+                singleName: action.payload.name,
+                singleImg:  action.payload.imageURL,
+                singleDesc: action.payload.description,
                 isFetching: false,
                 error: "",
             }
@@ -79,6 +84,26 @@ export const campaignReducer = (state = initialState, action) => {
             }
         case ADD_CAMPAIGN_FAIL:
             return {
+                ...state,
+                error: action.payload,
+            }
+        case UPDATE_CAMPAIGN_START:
+            return{
+                ...state,
+            }
+        case UPDATE_CAMPAIGN_SUCCESS:
+            return{
+                ...state,
+                isFetching: false,
+                data: state.data.map(
+                    res => res.id === action.payload.id
+                    ? action.payload
+                    : res
+                ),
+                error: "",
+            }
+        case UPDATE_CAMPAIGN_FAIL:
+            return{
                 ...state,
                 error: action.payload,
             }
@@ -107,7 +132,7 @@ export const campaignReducer = (state = initialState, action) => {
         case DELETE_CAMPAIGN_SUCCESS:
             return {
                 ...state,
-                data: action.payload
+                data: state.data.filter(del => del.id !== action.payload)
             }
     default:
         return state;

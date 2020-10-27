@@ -79,16 +79,16 @@ export const updateSingleCampaign = (id, campaign) => (dispatch) => {
     dispatch({ type: UPDATE_CAMPAIGN_START })
     axiosWithAuth()
         .put(`/api/campaigns/${id}`, id, campaign)
-        .then((res) => {
-            axiosWithAuth()
-                .get(`/api/campaigns`)
-                .then((response) => {
+        .then((response) => {
+            // axiosWithAuth()
+            //     .get(`/api/campaigns`)
+            //     .then((response) => {
                     dispatch({ type: UPDATE_CAMPAIGN_SUCCESS, payload: response.data })
                 })
                 .catch((err) => {
                     console.log(err)
                 })
-        })
+        // })
         .catch((err) =>
             dispatch({ type: UPDATE_CAMPAIGN_FAIL, payload: err.message})
         )
@@ -100,7 +100,7 @@ export const deleteSingleCampaign = (id) => (dispatch) =>{
             .delete(`/api/campaigns/${id}`)
             .then((res) => {
                 console.log("ko: campaignActions: deleteSingleCampaign: ", res.data)
-                dispatch({ type: DELETE_CAMPAIGN_SUCCESS, payload: res.data})
+                dispatch({ type: DELETE_CAMPAIGN_SUCCESS, payload: id})
             })
             .catch((err) => console.log("ko: campaignActions: deleteSingleCampaign: error: ", err.message))
 }
